@@ -13,8 +13,9 @@ router.post("/register", async (req, res) => {
   try {
     const user = await helper.userExists(username);
     if (user) {
-      console.log("User already exists!");
-      return res.redirect("login");
+      // Flash a message to the user
+      req.flash("error", "Username already taken");
+      return res.redirect("/users/register");
     }
     // Hash password before storing in local DB:
     const salt = await bcrypt.genSalt(10);
@@ -46,7 +47,7 @@ router.get("/logout", (req, res) => {
 });
 
 router.get("/register", (req, res) => {
-  res.render("register");
+  res.render("register", { error: req.flash("error") });
 });
 
 router.get("/login", (req, res) => {

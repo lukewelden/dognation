@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const session = require("express-session");
 const passport = require("passport");
+const flash = require("express-flash");
 
 // App config
 app.set("trust proxy", 1);
@@ -28,6 +29,7 @@ app.use(
     secure: true,
   })
 )
+app.use(flash());
 
 // Passport Config
 app.use(passport.initialize());

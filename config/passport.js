@@ -8,10 +8,11 @@ passport.use(
     new LocalStrategy(function (username, password, done) {
       helper.findByUsername(username, async function (err, user) {
         const matchedPassword = await bcrypt.compare(password, user.password);
-        
+        // If there is an error, finish trying to authenticate (auth failed)
         if (err) {
           return done(err);
         }
+        // Username already taken (auth failed)
         if (!user) {
           return done(null, false);
         }

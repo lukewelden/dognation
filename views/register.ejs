@@ -49,6 +49,11 @@
             Register
           </button>
         </form>
+        <% if (locals.error && locals.error.length > 0) { %>
+          <div class="alert alert-danger" role="alert">
+            <%= error[0] %>
+          </div>
+        <% } %>
       </div>
     </div>
 
